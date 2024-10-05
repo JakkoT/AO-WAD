@@ -3,11 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="style/login.css">
+    <title>Login</title>
 </head>
 <body>
-    <h1>Login page</h1>
-    <h2>Jakko</h2>
+    <nav>
+        <a href="index.html">HOME</a>       
+        <a class="logo" href="#"><img src="icon.png" width="50" height="50" alt="User icon"></a>
+    </nav>
+
+    <div class="form-container">
+        <h1>Welcome to PostIt</h1>
+        <form action="index.html" method="POST">
+            <table class="login">
+                <tr>
+                    <td>
+                        <a href="#">Create an account</a> <br>
+                        <p>or</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Please log in</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="email" class="login-form" alt="Email" placeholder="Email">
+                        <input type="password" class="login-form" alt="Password" placeholder="Password">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="submit">Log in</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="#">Forgot password</a>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
     
 </body>
 </html>

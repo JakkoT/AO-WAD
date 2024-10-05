@@ -40,41 +40,24 @@ nav .logo {
 }
 table {
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
 }
 td {
-    padding: 10px;
-    vertical-align: top;
-    text-align: right;
-}
-label {
-    text-align: end;
-}
-textarea {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    font-family: inherit;
-    font-size: 14px;
+    padding: 0px;
+    vertical-align: center;
+    text-align: center;
 }
 
-.file-input {
-    padding: 8px;
-    font-size: 14px;
-    color: gray;
-    cursor: pointer;
-    width: 70%;
+.login td p {
+    margin: 5px 0;
 }
-input[type="file"] {
-    display: none;
-  }
-  
-  .custom-file-upload {
-    border: 1px solid #ccc;
-    display: inline-block;
-    padding: 6px 12px;
-    cursor: pointer;
-  }
+
+.login td input + input{
+    margin: 10px;
+}
+
+
+
 .form-container button {
     padding: 8px;
     font-size: 14px;
@@ -89,4 +72,12 @@ input[type="file"] {
 }
 .form-container button:hover{
     background-color: blue;
+}
+
+.login-form{
+    width: 50%;
+    padding: 8px;
+    border-radius: 2px;
+    border: #d8d8d8;
+    font-size: 15px;
 }
