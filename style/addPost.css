@@ -47,41 +47,38 @@ td {
     vertical-align: top;
     text-align: right;
 }
-label {
-    text-align: end;
-}
-textarea {
+#content {
     width: 100%;
     padding: 10px;
-    border-radius: 5px;
     font-family: inherit;
     font-size: 14px;
+    border: none;
 }
-
-.file-input {
-    padding: 8px;
-    font-size: 14px;
-    color: gray;
-    cursor: pointer;
-    width: 70%;
+textarea::placeholder {
+    color: #888;
+    font-style: italic;
 }
 input[type="file"] {
     display: none;
-  }
-  
-  .custom-file-upload {
-    border: 1px solid #ccc;
-    display: inline-block;
+}
+.custom-file-input {
+    border: 1px solid #000000;
+    background-color: gray;
+    color: white;
     padding: 6px 12px;
-    cursor: pointer;
-  }
+    cursor: pointer; 
+    float: left;
+    white-space: nowrap;
+}
+.custom-file-input:hover{
+    background-color: #616161;
+}
 .form-container button {
     padding: 8px;
     font-size: 14px;
     background-color: rgba(20, 20, 155, 0.669);
     color: white;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
     width: auto;
     display: block;
@@ -89,4 +86,20 @@ input[type="file"] {
 }
 .form-container button:hover{
     background-color: blue;
+}
+
+@media (max-width: 700px) {
+    nav {
+        flex-direction: column;
+        align-items: center;
+    }
+    nav a {
+        padding: 10px;
+    }
+    nav .logo{
+        margin: 0;
+    }
+    .form-container{
+        width: 40%;
+    }
 }
