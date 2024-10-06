@@ -12,7 +12,7 @@ nav {
     border-radius: 15px;
     margin: 10px;
 }
-nav a {
+nav > a {
     color: black;
     text-decoration: none;
     padding: 14px 20px;
@@ -26,6 +26,7 @@ nav .logo {
     margin-left: auto;
 }
 .form-container {
+    display: flexbox;
     background-color: #d8d8d8;
     padding: 20px;
     width: 30%;
@@ -43,8 +44,11 @@ table {
     margin-bottom: 0px;
 }
 td {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     padding: 0px;
-    vertical-align: center;
     text-align: center;
 }
 
@@ -55,6 +59,7 @@ td {
 .login td input + input{
     margin: 10px;
 }
+
 
 
 
@@ -75,9 +80,14 @@ td {
 }
 
 .login-form{
-    width: 50%;
+    
+    width: 40%;
     padding: 8px;
     border-radius: 2px;
     border: #d8d8d8;
     font-size: 15px;
+}
+
+nav ~ .form-container{
+    padding: 20px;
 }
