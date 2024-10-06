@@ -87,11 +87,10 @@ td {
     border: #d8d8d8;
     font-size: 15px;
 }
-<<<<<<< HEAD
 
 nav ~ .form-container{
     padding: 20px;
-=======
+    
 @media (max-width: 700px) {
     nav {
         flex-direction: column;
@@ -103,5 +102,4 @@ nav ~ .form-container{
     nav .logo{
         margin: 0;
     }
->>>>>>> 8662f6bd886ea8b451dfeab3e87972ffa2becbcd
 }
