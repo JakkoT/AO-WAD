@@ -37,8 +37,8 @@ p {
     margin: 0;
 }
 
-td>img {
-    max-width: 100%;
+.postimg {
+    width: 100%;
 }
 
 footer {
