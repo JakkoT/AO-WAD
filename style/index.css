@@ -82,8 +82,6 @@ nav .logo {
     margin-left: auto;
 }
 
-
-
 table {
     width: 100%;
     margin-bottom: 20px;
@@ -98,53 +96,6 @@ td {
 
 td+td {
     text-align: right;
-}
-
-#content {
-    width: 100%;
-    padding: 10px;
-    font-family: inherit;
-    font-size: 14px;
-    border: none;
-}
-
-textarea::placeholder {
-    color: #888;
-    font-style: italic;
-}
-
-input[type="file"] {
-    display: none;
-}
-
-.custom-file-input {
-    border: 1px solid #000000;
-    background-color: gray;
-    color: white;
-    padding: 6px 12px;
-    cursor: pointer;
-    float: left;
-    white-space: nowrap;
-}
-
-.custom-file-input:hover {
-    background-color: #616161;
-}
-
-.form-container button {
-    padding: 8px;
-    font-size: 14px;
-    background-color: rgba(20, 20, 155, 0.669);
-    color: white;
-    border: none;
-    cursor: pointer;
-    width: auto;
-    display: block;
-    margin: 15px auto;
-}
-
-.form-container button:hover {
-    background-color: blue;
 }
 
 @media (max-width: 700px) {
