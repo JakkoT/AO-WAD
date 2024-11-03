@@ -17,15 +17,15 @@ main>div {
     flex-grow: 1;
     padding-top: 0;
     padding-bottom: 0;
-    padding-left: 30px;
-    padding-right: 30px;
+    padding-left: 40px;
+    padding-right: 40px;
 }
 
 .post {
     background-color: #d9d9d9;
     flex-grow: 1;
 
-    border-radius: 20px;
+    border-radius: 10px;
 
 }
 
@@ -139,12 +139,20 @@ td+td {
         align-items: center;
     }
 
+    main>div {
+        padding: 30px; 
+    }
+
     nav a {
         padding: 10px;
     }
 
     nav .logo {
         margin: 0;
+    }
+
+    .separator {
+        display: none;
     }
 
     .form-container {

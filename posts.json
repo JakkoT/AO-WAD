@@ -1,84 +1,94 @@
 [
-  {
-    "id": 1,
-    "author": "Mati",
-    "mail": "mati@ut.ee",
-    "createTime": "2022-10-22T14:30:00Z",
-    "content": "Tartu 2022",
-    "image": "post-1.png",
-    "reaction": "like.png"
-  },
-  {
-    "id": 2,
-    "author": "Bob",
-    "mail": "bob@ut.ee",
-    "createTime": "2022-10-02T14:30:00Z",
-    "content": "Anyone knows in which room is the lab today?",
-    "reaction": "like.png"
-  },
-  {
-    "id": 3,
-    "author": "Sponge",
-    "mail": "sponge@ut.ee",
-    "createTime": "2022-09-14T14:30:00Z",
-    "content": "At what time does the web application development lecture start?",
-    "reaction": "like.png"
-  },
-  {
-    "id": 4,
-    "author": "Kalle",
-    "mail": "kalle@ut.ee",
-    "createTime": "2022-09-10T14:30:00Z",
-    "content": "My cat",
-    "image": "cat.png",
-    "reaction": "like.png"
-  },
-  {
-    "id": 5,
-    "author": "Tom",
-    "mail": "tom@ut.ee",
-    "createTime": "2022-08-25T14:30:00Z",
-    "content": "What forum is this?\nSorry, I'm new here.",
-    "reaction": "like.png"
-  },
-  {
-    "id": 6,
-    "author": "Jerry",
-    "mail": "jerry@ut.ee",
-    "createTime": "2022-08-11T14:30:00Z",
-    "content": "What day is it?",
-    "reaction": "like.png"
-  },
-  {
-    "id": 7,
-    "author": "Me",
-    "mail": "me@ut.ee",
-    "createTime": "2022-07-05T14:30:00Z",
-    "content": "Hello!",
-    "reaction": "like.png"
-  },
-  {
-    "id": 8,
-    "author": "Tim",
-    "mail": "tim@ut.ee",
-    "createTime": "2022-07-02T14:30:00Z",
-    "content": ":)",
-    "reaction": "like.png"
-  },
-  {
-    "id": 9,
-    "author": "Kati",
-    "mail": "kati@ut.ee",
-    "createTime": "2022-06-18T14:30:00Z",
-    "content": ":(",
-    "reaction": "like.png"
-  },
-  {
-    "id": 10,
-    "author": "Mari",
-    "mail": "mari@ut.ee",
-    "createTime": "2022-06-15T14:30:00Z",
-    "content": "Test test test",
-    "reaction": "like.png"
-  }
-]
+    {
+      "id": 1,
+      "author": "Mati",
+      "mail": "mati@ut.ee",
+      "profilePicture": "images/icon.png",
+      "createTime": "Oct 22, 2022",
+      "content": "Tartu 2022",
+      "image": "images/post-1.png",
+      "reaction": "images/like.png"
+    },
+    {
+      "id": 2,
+      "author": "Bob",
+      "mail": "bob@ut.ee",
+      "profilePicture": "images/icon.png",
+      "createTime": "Oct 2, 2022",
+      "content": "Anyone knows in which room is the lab today?",
+      "reaction": "images/like.png"
+    },
+    {
+      "id": 3,
+      "author": "Sponge",
+      "mail": "sponge@ut.ee",
+      "profilePicture": "images/icon.png",
+      "createTime": "Sep 14, 2022",
+      "content": "At what time does the web application development lecture start?",
+      "reaction": "images/like.png"
+    },
+    {
+      "id": 4,
+      "author": "Kalle",
+      "mail": "kalle@ut.ee",
+      "profilePicture": "images/kalle-profile.jpg",
+      "createTime": "Sep 10, 2022",
+      "content": "My cat",
+      "image": "images/cat.png",
+      "reaction": "images/like.png"
+    },
+    {
+      "id": 5,
+      "author": "Tom",
+      "mail": "tom@ut.ee",
+      "profilePicture": "images/icon.png",
+      "createTime": "Aug 25, 2022",
+      "content": "What forum is this?\nSorry, I'm new here.",
+      "reaction": "images/like.png"
+    },
+    {
+      "id": 6,
+      "author": "Jerry",
+      "mail": "jerry@ut.ee",
+      "profilePicture": "images/icon.png",
+      "createTime": "Aug 11, 2022",
+      "content": "What day is it?",
+      "reaction": "images/like.png"
+    },
+    {
+      "id": 7,
+      "author": "Me",
+      "mail": "me@ut.ee",
+      "profilePicture": "images/icon.png",
+      "createTime": "Jul 5, 2022",
+      "content": "Hello!",
+      "reaction": "images/like.png"
+    },
+    {
+      "id": 8,
+      "author": "Tim",
+      "mail": "tim@ut.ee",
+      "profilePicture": "images/icon.png",
+      "createTime": "Jul 2, 2022",
+      "content": ":)",
+      "reaction": "images/like.png"
+    },
+    {
+      "id": 9,
+      "author": "Kati",
+      "mail": "kati@ut.ee",
+      "profilePicture": "images/icon.png",
+      "createTime": "Jun 18, 2022",
+      "content": ":(",
+      "reaction": "images/like.png"
+    },
+    {
+      "id": 10,
+      "author": "Mari",
+      "mail": "mari@ut.ee",
+      "profilePicture": "images/icon.png",
+      "createTime": "Jun 15, 2022",
+      "content": "Test test test",
+      "reaction": "images/like.png"
+    }
+  ]

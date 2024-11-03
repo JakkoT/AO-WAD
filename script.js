@@ -18,7 +18,7 @@ fetch("posts.json")
           <table>
             <tr>
               <td>
-                <img src="icon.png" alt="User icon" width="25" height="25" />
+                <img src="${element.profilePicture}" alt="User icon" width="30" height="30" />
               </td>
               <td>
                 <p>${element.createTime}</p>
@@ -43,7 +43,7 @@ fetch("posts.json")
           <table>
             <tr>
               <td>
-                <img src="icon.png" alt="User icon" width="25" height="25" />
+                <img src="${element.profilePicture}" alt="User icon" width="30" height=30" />
               </td>
               <td>
                 <p>${element.createTime}</p>
