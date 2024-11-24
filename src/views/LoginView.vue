@@ -45,6 +45,7 @@
                   alt="Email"
                   placeholder="Email"
                   required
+                  v-model="email"
                 />
                 <input
                   type="password"
@@ -52,6 +53,8 @@
                   alt="Password"
                   placeholder="Password"
                   required
+                  v-model="password"
+                  @input="validatePassword"
                 />
               </td>
             </tr>
