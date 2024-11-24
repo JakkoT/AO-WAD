@@ -2,17 +2,18 @@
   <div class="post">
     <table>
       <tbody>
-        <tr>
-          <td>
+        <tr class="header-row">
+          <td class="user-icon-cell">
             <img
+              class = "user-icon"
               src="@/assets/icon.png"
               alt="User icon"
               width="30"
               height="30"
             />
           </td>
-          <td>
-            <p>{{ post.createTime }}</p>
+          <td class="date-cell">
+            <p class="date">{{ post.formattedDate }}</p>
           </td>
         </tr>
         <!-- Check if the image exists and only then try to show it -->
@@ -32,7 +33,7 @@
         </tr>
         <tr>
           <td colspan="3">
-            <p>{{ post.content }}</p>
+            <p class="post-content">{{ post.content }}</p>
           </td>
         </tr>
         <tr>
@@ -41,8 +42,8 @@
               class="like-icon"
               :src="require(`@/assets/${post.reaction}`)"
               alt="Reaction"
-              width="25"
-              height="25"
+              width="30"
+              height="30"
               @click="likePost"
             />
             <span class="likes-count">{{ post.likes }} Likes</span>
@@ -89,17 +90,41 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 @import "@/styles/index.css";
-td {
-  padding-left: 10px;
-  padding-right: 10px;
-  vertical-align: left;
-  text-align: left;
+
+/* Style for the overall post */
+.post {
+  background-color: #d9d9d9;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 20px;
+  text-align: left; /* Align post content to the left */
 }
-.likes-row {
+.header-row {
   display: flex;
-  align-items: center;
+  justify-content: space-between; /* Push user icon to the left, date to the right */
+  align-items: center; 
+}
+.date {
+  font-weight: bold;
+  color: #555;
+  margin: 0;
+}
+
+/* Post content */
+.post-content {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  margin-right: auto;
+}
+
+/* Post image */
+.postimg {
+  width: 100%;
+  border-radius: 5px;
+  margin-top: 10px;
 }
 .likes-count {
   margin-left: auto; 
@@ -108,6 +133,6 @@ td {
 }
 .like-icon {
   cursor: pointer;
-  margin-right: 0px;
+  margin-right: auto;
 }
 </style>

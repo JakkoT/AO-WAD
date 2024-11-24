@@ -57,7 +57,6 @@ export default {
 </script>
 
 <style scoped>
-/* scoped - The style only applies here and doesn't extend elsewhere */
 @import "@/styles/index.css";
 .reset-likes-container {
   display: flex;
@@ -71,6 +70,7 @@ export default {
   color: white;
   border: none;
   cursor: pointer;
+  border-radius: 20px;
 }
 .reset-button:hover {
   background-color: #171774;

@@ -1,6 +1,16 @@
 import { createStore } from "vuex";
 import postsJSON from "@/assets/posts.json";
 
+// Helper function to format timestamps
+function formatTimestamp(timestamp) {
+  const date = new Date(timestamp);
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+}
+
 export default createStore({
   state: {
     posts: {}, // Stores individual posts by ID
@@ -14,7 +24,11 @@ export default createStore({
     setPosts(state, posts) {
       // Store posts in an object keyed by their IDs
       state.posts = posts.reduce((acc, post) => {
-        acc[post.id] = { ...post, likes: post.likes || 0 }; 
+        acc[post.id] = {
+          ...post,
+          likes: post.likes || 0, // Ensure likes are initialized
+          formattedDate: formatTimestamp(post.createTime), // Format the timestamp
+        };
         return acc;
       }, {});
     },
