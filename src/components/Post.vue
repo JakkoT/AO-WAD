@@ -36,13 +36,16 @@
           </td>
         </tr>
         <tr>
-          <td>
+          <td class="likes-row">
             <img
+              class="like-icon"
               :src="require(`@/assets/${post.reaction}`)"
               alt="Reaction"
               width="25"
               height="25"
+              @click="likePost"
             />
+            <span class="likes-count">{{ post.likes }} Likes</span>
           </td>
         </tr>
       </tbody>
@@ -74,8 +77,13 @@ export default {
       }
     });
 
+    const likePost = () => {
+      store.dispatch("incrementLikes", props.id); // Dispatch "incrementLikes" action
+    };
+
     return {
       post,
+      likePost,
     };
   },
 };
@@ -88,5 +96,18 @@ td {
   padding-right: 10px;
   vertical-align: left;
   text-align: left;
+}
+.likes-row {
+  display: flex;
+  align-items: center;
+}
+.likes-count {
+  margin-left: auto; 
+  font-weight: bold;
+  color: #555;
+}
+.like-icon {
+  cursor: pointer;
+  margin-right: 0px;
 }
 </style>

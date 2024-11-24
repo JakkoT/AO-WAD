@@ -14,9 +14,19 @@ export default createStore({
     setPosts(state, posts) {
       // Store posts in an object keyed by their IDs
       state.posts = posts.reduce((acc, post) => {
-        acc[post.id] = post;
+        acc[post.id] = { ...post, likes: post.likes || 0 }; 
         return acc;
       }, {});
+    },
+    INCREMENT_LIKES(state, postId) {
+      if (state.posts[postId]) {
+        state.posts[postId].likes += 1;
+      }
+    },
+    RESET_LIKES(state) {
+      for (const postId in state.posts) {
+        state.posts[postId].likes = 0;
+      }
     },
   },
   actions: {
@@ -29,7 +39,12 @@ export default createStore({
         console.error("Error fetching all posts:", error);
       }
     },
-
+    incrementLikes({ commit }, postId) {
+      commit("INCREMENT_LIKES", postId);
+    },
+    resetLikes({ commit }) {
+      commit("RESET_LIKES");
+    },
     // Action to refetch all posts if a new one is added
     async refetchPosts({ dispatch }) {
       await dispatch("fetchAllPosts");

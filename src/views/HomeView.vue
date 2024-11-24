@@ -7,6 +7,9 @@
       <div v-if="posts.length > 0" id="middle">
         <Post v-for="post in posts" :key="post.id" :id="post.id" />
         <!-- The postlist component - all of our posts from json -->
+        <div class="reset-likes-container">
+          <button @click="resetAllLikes" class="reset-button">Reset Likes</button>
+        </div>
       </div>
       <div class="sidebar"></div>
     </main>
@@ -44,7 +47,11 @@ export default {
       console.log(store.getters.getAllPosts);
     });
 
-    return { posts };
+    const resetAllLikes = () => {
+      store.dispatch("resetLikes"); 
+    };
+
+    return { posts, resetAllLikes };
   },
 };
 </script>
@@ -52,4 +59,20 @@ export default {
 <style scoped>
 /* scoped - The style only applies here and doesn't extend elsewhere */
 @import "@/styles/index.css";
+.reset-likes-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.reset-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #3a35da;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+.reset-button:hover {
+  background-color: #171774;
+}
 </style>
