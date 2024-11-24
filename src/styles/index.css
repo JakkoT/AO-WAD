@@ -20,6 +20,14 @@ main > div {
   padding-left: 30px;
   padding-right: 30px;
 }
+.sidebar {
+  padding: 5vw;
+}
+@media (min-width: 700px) {
+  .sidebar {
+    padding: 10vw;
+  }
+}
 
 .post {
   background-color: #d9d9d9;
