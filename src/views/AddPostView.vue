@@ -48,8 +48,7 @@
               <td><label for="file-upload">Select file</label></td>
               <td>
                 <label for="file-upload" class="custom-file-input"
-                  >Choose File</label
-                >
+                  >Choose File</label>
                 <input type="file" id="file-upload" />
               </td>
             </tr>
@@ -87,6 +86,6 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 @import "@/styles/addPost.css";
 </style>
