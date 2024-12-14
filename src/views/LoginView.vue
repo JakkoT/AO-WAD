@@ -54,18 +54,12 @@
                   placeholder="Password"
                   required
                   v-model="password"
-                  @input="validatePassword"
                 />
               </td>
             </tr>
             <tr>
               <td>
-                <button type="submit">Log in</button>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <a href="#">Forgot password</a>
+                <button @click="login">Log in</button>
               </td>
             </tr>
           </tbody>
@@ -83,6 +77,12 @@ import FooterComp from "@/components/FooterComp.vue";
 
 export default {
   name: "LoginView",
+  data: function () {
+    return {
+      email: "",
+      password: "",
+    };
+  },
   components: {
     DropdownMenu,
     HeaderComp,
@@ -90,8 +90,27 @@ export default {
   },
   methods: {
     login() {
-      // Go back to the home view
-      this.$router.push("/");
+      var data = {
+        email: this.email,
+        password: this.password,
+      };
+      fetch("http://localhost:3000/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          location.assign("/");
+        })
+        .catch((e) => {
+          console.log(e);
+          console.log("error");
+        });
     },
   },
 };

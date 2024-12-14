@@ -5,11 +5,8 @@
     <main>
       <div class="sidebar"></div>
       <div v-if="posts.length > 0" id="middle">
-        <Post v-for="post in posts" :key="post.id" :id="post.id" />
+        <Post v-for="post in posts" :key="post.id" :json="post" />
         <!-- The postlist component - all of our posts from json -->
-        <div class="reset-likes-container">
-          <button @click="resetAllLikes" class="reset-button">Reset Likes</button>
-        </div>
       </div>
       <div class="sidebar"></div>
     </main>
@@ -24,34 +21,45 @@ import Post from "@/components/Post.vue";
 import HeaderComp from "@/components/HeaderComp.vue";
 import FooterComp from "@/components/FooterComp.vue";
 
-import { computed, onMounted } from "vue";
-import { useStore } from "vuex";
-
 export default {
   name: "HomeView",
+  data() {
+    return {
+      posts: [],
+    };
+  },
   components: {
     DropdownMenu,
     Post,
     HeaderComp,
     FooterComp,
   },
-  setup() {
-    // This is a function that runs when the component is created
-    const store = useStore();
-    // Computed property for all posts
-    var posts = computed(() => store.getters.getAllPosts);
-
-    // Fetch all posts on mount
-    onMounted(async () => {
-      await store.dispatch("fetchAllPosts");
-      console.log(store.getters.getAllPosts);
-    });
-
-    const resetAllLikes = () => {
-      store.dispatch("resetLikes"); 
-    };
-
-    return { posts, resetAllLikes };
+  methods: {
+    fetchPosts() {
+      fetch(`http://localhost:3000/api/posts/`)
+        .then((response) => response.json())
+        .then((data) => (this.posts = data))
+        .catch((err) => console.log(err.message));
+    },
+  },
+  mounted() {
+    fetch(`http://localhost:3000/auth/authenticate`, {
+      method: "GET",
+      credentials: "include",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        if (data.authenticated) {
+          console.log("authenticated");
+        } else {
+          console.log("not authenticated");
+          this.$router.push("/login");
+        }
+      })
+      .catch((err) => console.log(err.message));
+    this.fetchPosts();
+    console.log("mounted");
   },
 };
 </script>

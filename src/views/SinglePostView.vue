@@ -1,27 +1,6 @@
 <template>
   <div>
     <HeaderComp></HeaderComp>
-    <!--
-    <nav>
-      <router-link to="/">HOME</router-link>
-      -->
-    <!-- The Router gets us to index.html ("Home" in the vue project) -->
-    <!--
-      <img
-        class="logo"
-        id="logo"
-        src="@/assets/icon.png"
-        width="50"
-        height="50"
-        alt="User icon"
-      />
-    -->
-    <!-- The Dropdownmenu component -->
-    <!--
-      <DropdownMenu />
-    </nav>
--->
-
     <div class="form-container">
       <h1>Add a New Post</h1>
       <!-- <form action="index.html" method="GET"> -->
@@ -40,8 +19,7 @@
                   name="header"
                   rows="2"
                   required
-                  placeholder="The text for your header..."
-                  v-model="header"
+                  v-model="this.header"
                 ></textarea>
               </td>
             </tr>
@@ -53,19 +31,13 @@
                   name="content"
                   rows="5"
                   required
-                  placeholder="The text for your post..."
-                  v-model="content"
+                  v-model="this.content"
                 ></textarea>
               </td>
             </tr>
           </tbody>
         </table>
-        <button
-          @click="createPost"
-          :disabled="!filled_content || !filled_header"
-        >
-          Create post
-        </button>
+        <button @click="updatePost">Update post</button>
       </form>
     </div>
   </div>
@@ -78,7 +50,7 @@ import HeaderComp from "@/components/HeaderComp.vue";
 import FooterComp from "@/components/FooterComp.vue";
 
 export default {
-  name: "AddPostView",
+  name: "SinglePost",
   components: {
     DropdownMenu,
     HeaderComp,
@@ -88,27 +60,17 @@ export default {
     return {
       content: "",
       header: "",
-      filled_content: false,
-      filled_header: false,
     };
   },
-  watch: {
-    content: function () {
-      this.filled_content = this.content.length > 0;
-    },
-    header: function () {
-      this.filled_header = this.header.length > 0;
-    },
-  },
+  computed: {},
 
   methods: {
-    createPost() {
-      fetch("http://localhost:3000/api/posts", {
-        method: "POST",
+    updatePost() {
+      fetch(`http://localhost:3000/api/posts/${this.$route.params.id}`, {
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include",
         body: JSON.stringify({
           title: this.header,
           body: this.content,
@@ -141,10 +103,24 @@ export default {
         }
       })
       .catch((err) => console.log(err.message));
+
+    fetch(`http://localhost:3000/api/posts/${this.$route.params.id}`, {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        this.content = data.body;
+        this.header = data.title;
+        console.log(this.content);
+        console.log(this.header);
+      })
+      .catch((e) => {
+        console.log(e);
+        console.log("error");
+      });
   },
 };
 </script>
 
-<style>
-@import "@/styles/addPost.css";
-</style>
+<style></style>

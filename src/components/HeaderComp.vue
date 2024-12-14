@@ -8,6 +8,8 @@
     <router-link to="/login">Login</router-link>
     <p>|</p>
     <router-link to="/signup">Sign up</router-link>
+    <p>|</p>
+    <router-link to="/contactus">Contact us</router-link>
     <img
       class="logo"
       id="logo"

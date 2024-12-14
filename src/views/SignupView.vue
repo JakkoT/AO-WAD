@@ -43,7 +43,7 @@
             </tr>
             <tr>
               <td>
-                <button type="submit" :disabled="!validPass">Sign up</button>
+                <button @click="SignUp" :disabled="!validPass">Sign up</button>
               </td>
             </tr>
           </tbody>
@@ -66,7 +66,7 @@ export default {
     HeaderComp,
     FooterComp,
   },
-  data() {
+  data: function () {
     return {
       email: "",
       password: "",
@@ -121,6 +121,31 @@ export default {
         errors.length > 0
           ? `The password is not valid - ${errors.join(" ")}`
           : "";
+    },
+
+    SignUp() {
+      console.log("SignUp");
+      var data = {
+        email: this.email,
+        password: this.password,
+      };
+      fetch("http://localhost:3000/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          this.$router.push("/");
+        })
+        .catch((e) => {
+          console.log(e);
+          console.log("error");
+        });
     },
   },
 };

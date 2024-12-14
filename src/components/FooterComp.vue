@@ -1,6 +1,6 @@
 <template>
   <footer>
-    <p>This page is owned by: Jakko Turro, Kätryn Varkel, Martin Männiste</p>
+    <p>This page is owned by: Jakko Turro, Kätryn Varkel</p>
   </footer>
 </template>
 
