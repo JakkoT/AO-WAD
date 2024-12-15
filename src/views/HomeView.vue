@@ -20,7 +20,7 @@
           <template v-else>
             <!-- Display this message when there are no posts -->
             <div class="no-posts-message">
-              <p>No posts available. Click "Add Post" to create a new one</p>
+              <p>No posts available. Click "Add Post" to create a new one!</p>
             </div>
           </template>
         </div>
@@ -48,6 +48,7 @@ export default {
   data() {
     return {
       posts: [],
+      authenticated: false,
     };
   },
   components: {
@@ -65,8 +66,13 @@ export default {
     },
     // Logout method
     logout() {
-      localStorage.removeItem("token"); // Clear JWT token
-      this.$router.push("/login"); // Redirect to login page
+      fetch("http://localhost:3000/auth/logout", { method: "GET", credentials: "include" })
+        .then(() => {
+          localStorage.removeItem("token"); // Remove any token
+          this.authenticated = false; // Update state
+          this.$router.push("/login"); // Redirect to login page
+        })
+        .catch((err) => console.error("Logout failed:", err.message));
     },
 
     // Navigate to Add Post page
@@ -96,6 +102,24 @@ export default {
       alert("An error occurred while trying to delete all posts.");
     });
 },
+// Check if user is authenticated
+  checkAuthentication() {
+      fetch("http://localhost:3000/auth/authenticate", { credentials: "include" })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.authenticated) {
+            this.authenticated = true;
+            this.fetchPosts(); // Fetch posts if authenticated
+          } else {
+            this.authenticated = false;
+            this.$router.push("/login"); // Redirect to login page
+          }
+        })
+        .catch((err) => {
+          console.error("Error authenticating:", err.message);
+          this.$router.push("/login");
+        });
+    }
   },
   mounted() {
     // Authentication check and fetch posts

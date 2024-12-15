@@ -2,69 +2,69 @@
   <div>
     <HeaderComp></HeaderComp>
     <div class="form-container">
-      <h1>Add a New Post</h1>
-      <!-- <form action="index.html" method="GET"> -->
-
-      <!--
-            Prevent reloading of the page. Actual posting logic is not implemented!! It just redirects to path "/"
-            -->
-      <form @submit.prevent="createPost">
+      <h1>A Post</h1>
+      <form @submit.prevent="updatePost">
         <table>
           <tbody>
             <tr>
-              <td><label for="content">Post header</label></td>
+              <td><label for="header">Body</label></td>
               <td>
-                <textarea
+                <input
                   id="header"
+                  type="text"
                   name="header"
-                  rows="2"
+                  v-model="header"
                   required
-                  v-model="this.header"
-                ></textarea>
-              </td>
-            </tr>
-            <tr>
-              <td><label for="content">Post body</label></td>
-              <td>
-                <textarea
-                  id="content"
-                  name="content"
-                  rows="5"
-                  required
-                  v-model="this.content"
-                ></textarea>
+                />
               </td>
             </tr>
           </tbody>
         </table>
-        <button @click="updatePost">Update post</button>
+        <div class="button-container">
+          <button class="update-button" type="submit">Update</button>
+          <button class="delete-button" type="button" @click="deletePost">
+            Delete
+          </button>
+        </div>
       </form>
     </div>
+    <FooterComp></FooterComp>
   </div>
-  <FooterComp></FooterComp>
 </template>
 
 <script>
-import DropdownMenu from "@/components/DropdownMenu.vue";
 import HeaderComp from "@/components/HeaderComp.vue";
 import FooterComp from "@/components/FooterComp.vue";
 
 export default {
   name: "SinglePost",
   components: {
-    DropdownMenu,
     HeaderComp,
     FooterComp,
   },
-  data: function () {
+  data() {
     return {
-      content: "",
-      header: "",
+      content: "", // Post body
+      header: "", // Post title
     };
   },
-  computed: {},
-
   methods: {
+    // Fetch the post when the page loads
+    fetchPost() {
+      fetch(`http://localhost:3000/api/posts/${this.$route.params.id}`, {
+        method: "GET",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          this.header = data.title;
+          this.content = data.body;
+        })
+        .catch((e) => {
+          console.error("Error fetching post:", e.message);
+        });
+    },
+
+    // Update the post
     updatePost() {
       fetch(`http://localhost:3000/api/posts/${this.$route.params.id}`, {
         method: "PUT",
@@ -76,51 +76,114 @@ export default {
           body: this.content,
         }),
       })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-          this.$router.push("/");
+        .then((response) => {
+          if (response.ok) {
+            alert("Post updated successfully!");
+            this.$router.push("/");
+          } else {
+            alert("Failed to update post.");
+          }
         })
         .catch((e) => {
-          console.log(e);
-          console.log("error");
+          console.error("Error updating post:", e.message);
+        });
+    },
+
+    // Delete the post
+    deletePost() {
+      fetch(`http://localhost:3000/api/posts/${this.$route.params.id}`, {
+        method: "DELETE",
+      })
+        .then((response) => {
+          if (response.ok) {
+            alert("Post deleted successfully!");
+            this.$router.push("/");
+          } else {
+            alert("Failed to delete post.");
+          }
+        })
+        .catch((e) => {
+          console.error("Error deleting post:", e.message);
+        });
+    },
+
+    // Check if user is authenticated
+    checkAuthentication() {
+      fetch("http://localhost:3000/auth/authenticate", {
+        method: "GET",
+        credentials: "include",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (!data.authenticated) {
+            this.$router.push("/login");
+          }
+        })
+        .catch((err) => {
+          console.error("Error checking authentication:", err.message);
+          this.$router.push("/login");
         });
     },
   },
   mounted() {
-    fetch(`http://localhost:3000/auth/authenticate`, {
-      method: "GET",
-      credentials: "include",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        if (data.authenticated) {
-          console.log("authenticated");
-        } else {
-          console.log("not authenticated");
-          this.$router.push("/login");
-        }
-      })
-      .catch((err) => console.log(err.message));
-
-    fetch(`http://localhost:3000/api/posts/${this.$route.params.id}`, {
-      method: "GET",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        this.content = data.body;
-        this.header = data.title;
-        console.log(this.content);
-        console.log(this.header);
-      })
-      .catch((e) => {
-        console.log(e);
-        console.log("error");
-      });
+    this.checkAuthentication(); // Verify user authentication
+    this.fetchPost(); // Fetch the specific post
   },
 };
 </script>
 
-<style></style>
+<style scoped>
+.form-container {
+  background-color: rgb(253, 255, 231);
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 400px;
+  margin: 30px auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.button-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.update-button,
+.delete-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.update-button {
+  background-color: rgb(0, 38, 255);
+}
+
+.update-button:hover {
+  background-color: blue;
+}
+
+.delete-button {
+  background-color: rgb(0, 38, 255);
+}
+
+.delete-button:hover {
+  background-color: blue;
+}
+</style>
