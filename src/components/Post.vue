@@ -1,9 +1,7 @@
 <template>
   <div class="post" @click="goToPost">
-    <table>
-      <tbody>
-        <tr class="header-row">
-          <div class="post-header">
+    <!-- Header Row: Icon and Date -->
+    <div class="post-header">
       <img
         class="user-icon"
         src="@/assets/icon.png"
@@ -13,17 +11,12 @@
       />
       <span class="post-date">{{ json.date }}</span>
     </div>
-        </tr>
-        <!-- Check if the image exists and only then try to show it -->
 
-        <tr>
-          <td colspan="2">
-            <p class="post-content">{{ json.title }}</p>
-            <p class="post-content">{{ json.body }}</p>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <!-- Content Section -->
+    <div class="post-content">
+      <p class="post-title">{{ json.title }}</p>
+      <p class="post-body">{{ json.body }}</p>
+    </div>
   </div>
 </template>
 
@@ -61,6 +54,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 10px;
 }
 
 .user-icon {
@@ -74,7 +68,9 @@ export default {
 
 /* Content Section */
 .post-content {
-  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align title and body to the left */
 }
 
 .post-title {
