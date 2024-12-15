@@ -62,7 +62,7 @@
         </table>
         <button
           @click="createPost"
-          :disabled="!filled_content || !filled_header"
+          :disabled="!filled_content || !filled_header || isSubmitting"
         >
           Create post
         </button>
@@ -90,6 +90,7 @@ export default {
       header: "",
       filled_content: false,
       filled_header: false,
+      isSubmitting: false,
     };
   },
   watch: {
@@ -103,6 +104,8 @@ export default {
 
   methods: {
     createPost() {
+      if (this.isSubmitting) return; // Prevent duplicate submissions
+      this.isSubmitting = true;
       fetch("http://localhost:3000/api/posts", {
         method: "POST",
         headers: {
@@ -140,7 +143,10 @@ export default {
           this.$router.push("/login");
         }
       })
-      .catch((err) => console.log(err.message));
+      .catch((err) => console.log(err.message))
+      .finally(() => {
+        this.isSubmitting = false; // Reset the flag
+      });
   },
 };
 </script>
