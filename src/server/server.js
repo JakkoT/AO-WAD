@@ -94,7 +94,16 @@ app.delete("/api/posts/:id", async (req, res) => {
     console.error(err.message);
   }
 });
-
+app.delete("/api/posts", async (req, res) => {
+  try {
+    console.log("Delete all posts request has arrived");
+    const deleteAll = await pool.query("DELETE FROM posttable RETURNING *");
+    res.status(200).json({ message: "All posts deleted successfully", deleted: deleteAll.rows });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ error: "An error occurred while deleting posts" });
+  }
+});
 app.post("/auth/signup", async (req, res) => {
   try {
     console.log("a new user signup request has arrived");

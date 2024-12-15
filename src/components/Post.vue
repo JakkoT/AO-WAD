@@ -20,7 +20,6 @@
             <p class="post-content">{{ json.date }}</p>
             <p class="post-content">{{ json.title }}</p>
             <p class="post-content">{{ json.body }}</p>
-            <p class="post-content">{{ json.id }}</p>
           </td>
         </tr>
       </tbody>
@@ -32,7 +31,7 @@
 export default {
   props: {
     json: {
-      type: JSON,
+      type: Object,
       required: true,
     },
   },
