@@ -1,121 +1,139 @@
 <template>
   <div>
     <HeaderComp></HeaderComp>
-    <!--
-    <nav>
-      <router-link to="/">HOME</router-link>
-      <img
-        class="logo"
-        id="logo"
-        src="@/assets/icon.png"
-        width="50"
-        height="50"
-        alt="User icon"
-      />
-
-      
-      <DropdownMenu />
-    </nav>
--->
     <div class="form-container">
-      <h1>Welcome to PostIt</h1>
-      <!-- <form action="index.html" method="GET"> -->
-      <!--
-            Prevent reloading of the page. No authentication logic is implemented!! It just redirects to path "/"
-            -->
       <form @submit.prevent="login">
-        <table class="login">
-          <tbody>
-            <tr>
-              <td>
-                <router-link to="/signup">Create an account</router-link>
-                <p>or</p>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <p>Please log in</p>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <input
-                  type="email"
-                  class="login-form"
-                  alt="Email"
-                  placeholder="Email"
-                  required
-                  v-model="email"
-                />
-                <input
-                  type="password"
-                  class="login-form"
-                  alt="Password"
-                  placeholder="Password"
-                  required
-                  v-model="password"
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <button @click="login">Log in</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <!-- Email Row -->
+        <div class="form-row">
+          <label for="email" class="form-label">Email</label>
+          <input
+            id="email"
+            type="email"
+            placeholder="Email"
+            v-model="email"
+            required
+          />
+        </div>
+
+        <!-- Password Row -->
+        <div class="form-row">
+          <label for="password" class="form-label">Password</label>
+          <input
+            id="password"
+            type="password"
+            placeholder="Password"
+            v-model="password"
+            required
+          />
+        </div>
+
+        <!-- Buttons Row -->
+        <div class="button-row">
+          <button class="action-button login" type="submit">Login</button>
+          <router-link to="/signup" class="action-button signup"
+            >Signup</router-link
+          >
+        </div>
       </form>
     </div>
+    <FooterComp></FooterComp>
   </div>
-  <FooterComp></FooterComp>
 </template>
 
 <script>
-import DropdownMenu from "@/components/DropdownMenu.vue";
 import HeaderComp from "@/components/HeaderComp.vue";
 import FooterComp from "@/components/FooterComp.vue";
 
 export default {
   name: "LoginView",
-  data: function () {
+  components: { HeaderComp, FooterComp },
+  data() {
     return {
       email: "",
       password: "",
     };
   },
-  components: {
-    DropdownMenu,
-    HeaderComp,
-    FooterComp,
-  },
   methods: {
     login() {
-      var data = {
-        email: this.email,
-        password: this.password,
-      };
+      const data = { email: this.email, password: this.password };
       fetch("http://localhost:3000/auth/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         credentials: "include",
         body: JSON.stringify(data),
       })
         .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-          location.assign("/");
-        })
-        .catch((e) => {
-          console.log(e);
-          console.log("error");
-        });
+        .then(() => location.assign("/"))
+        .catch((e) => console.error(e));
     },
   },
 };
 </script>
 
 <style scoped>
-@import "@/styles/login.css";
+/* Container for centering the form */
+.form-container {
+  background-color: #f4f7ea;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  width: 400px;
+  margin: 50px auto;
+}
+
+/* Rows for inputs */
+.form-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.form-label {
+  font-weight: bold;
+  color: #333;
+  width: 30%;
+}
+
+input {
+  width: 65%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Buttons Row */
+.button-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15px;
+  gap: 10px; /* Space between elements */
+}
+
+/* Buttons */
+.action-button {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+  text-align: center;
+  display: inline-block;
+}
+
+.login {
+  background-color: #4a90e2;
+}
+
+.signup {
+  background-color: #4a90e2;
+}
+
+.login:hover,
+.signup:hover {
+  background-color: #357ab8;
+}
 </style>

@@ -1,72 +1,71 @@
 <template>
-  <div>
+  <div class="page-container">
     <HeaderComp></HeaderComp>
     <div class="form-container">
-      <h1>Welcome to PostIt signup</h1>
-      <!-- <form action="index.html" method="GET"> -->
-      <!--
-              Prevent reloading of the page. No authentication logic is implemented!! It just redirects to path "/"
-              -->
-      <form @submit.prevent="login">
-        <table class="login">
+      <form @submit.prevent="SignUp">
+        <table>
           <tbody>
+            <!-- Email Row -->
             <tr>
+              <td class="label-cell"><label for="email">Email</label></td>
               <td>
-                <p>Please sign up</p>
+                <input
+                  id="email"
+                  type="email"
+                  placeholder="Email"
+                  v-model="email"
+                  required
+                />
               </td>
             </tr>
+
+            <!-- Password Row -->
             <tr>
+              <td class="label-cell"><label for="password">Password</label></td>
               <td>
                 <input
-                  type="email"
-                  class="login-form"
-                  alt="Email"
-                  placeholder="Email"
-                  required
-                  v-model="email"
-                />
-                <input
+                  id="password"
                   type="password"
-                  class="login-form"
-                  alt="Password"
                   placeholder="Password"
-                  required
                   v-model="password"
                   @input="validatePassword"
+                  required
                 />
               </td>
             </tr>
-            <tr>
-              <td>
-                <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+
+            <!-- Error Message -->
+            <tr v-if="errorMessage">
+              <td colspan="2" class="error-cell">
+                <p class="error">{{ errorMessage }}</p>
               </td>
             </tr>
+
+            <!-- Signup Button -->
             <tr>
-              <td>
-                <button @click="SignUp" :disabled="!validPass">Sign up</button>
+              <td colspan="2" class="button-cell">
+                <button type="submit" :disabled="!validPass">Signup</button>
               </td>
             </tr>
           </tbody>
         </table>
       </form>
     </div>
+    <FooterComp></FooterComp>
   </div>
-  <FooterComp></FooterComp>
 </template>
 
 <script>
-import DropdownMenu from "@/components/DropdownMenu.vue";
 import HeaderComp from "@/components/HeaderComp.vue";
 import FooterComp from "@/components/FooterComp.vue";
 
 export default {
-  name: "LoginView",
+  name: "SignupView",
   components: {
-    DropdownMenu,
     HeaderComp,
     FooterComp,
   },
-  data: function () {
+  data() {
     return {
       email: "",
       password: "",
@@ -74,89 +73,107 @@ export default {
       validPass: false,
     };
   },
-
   methods: {
     validatePassword() {
       const password = this.password;
-
       const errors = [];
 
-      // Length check
       if (password.length < 8 || password.length > 15) {
         errors.push("Password must be between 8 and 15 characters.");
       }
-
-      // Must start with an uppercase letter
       if (!/^[A-Z]/.test(password)) {
-        errors.push("Password must start with an uppercase alphabet.");
+        errors.push("Password must start with an uppercase letter.");
       }
-
-      // Must include at least one numeric value
       if (!/[0-9]/.test(password)) {
-        errors.push("Password must include at least one numeric value.");
+        errors.push("Password must include at least one number.");
       }
-
-      // Must include at least one uppercase alphabet
-      if (!/[A-Z]/.test(password)) {
-        errors.push(
-          "Password must include at least one uppercase alphabet character."
-        );
-      }
-
-      // Must include at least two lowercase alphabet characters
       if ((password.match(/[a-z]/g) || []).length < 2) {
-        errors.push(
-          "Password must include at least two lowercase alphabet characters."
-        );
+        errors.push("Password must include at least two lowercase letters.");
       }
-
-      // Must include the character "_"
       if (!/_/.test(password)) {
         errors.push('Password must include the character "_".');
       }
 
-      // Update validation state
       this.validPass = errors.length === 0;
-      this.errorMessage =
-        errors.length > 0
-          ? `The password is not valid - ${errors.join(" ")}`
-          : "";
+      this.errorMessage = errors.length ? errors.join(" ") : "";
     },
-
     SignUp() {
-      console.log("SignUp");
-      var data = {
-        email: this.email,
-        password: this.password,
-      };
+      const data = { email: this.email, password: this.password };
       fetch("http://localhost:3000/auth/signup", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         credentials: "include",
         body: JSON.stringify(data),
       })
         .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-          this.$router.push("/");
-        })
-        .catch((e) => {
-          console.log(e);
-          console.log("error");
-        });
+        .then(() => this.$router.push("/"))
+        .catch((e) => console.error(e));
     },
   },
 };
 </script>
 
 <style scoped>
-@import "@/styles/login.css";
+/* Centered form container with light green background */
+.form-container {
+  background-color: #f0f4e8; /* Light green background */
+  border-radius: 10px;
+  padding: 20px;
+  width: 350px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 20px auto; /* Center horizontally */
+}
 
+/* Table styling for side-by-side alignment */
+table {
+  width: 100%;
+  border-spacing: 10px;
+}
+
+/* Label styling */
+.label-cell {
+  text-align: left;
+  font-weight: bold;
+  color: #333;
+  width: 30%; /* Fixed width for labels */
+}
+
+/* Input fields */
+input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+/* Error messages */
+.error-cell {
+  text-align: center;
+}
 .error {
   color: red;
   font-size: 0.9em;
-  margin-top: 0.5em;
+}
+
+/* Signup button */
+.button-cell {
+  text-align: center;
+}
+button {
+  background-color: #4a90e2;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+button:disabled {
+  background-color: #a0c4ff;
+  cursor: not-allowed;
+}
+button:hover:not(:disabled) {
+  background-color: #357ab8;
 }
 </style>
